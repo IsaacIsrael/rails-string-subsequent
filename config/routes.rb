@@ -5,13 +5,17 @@ Rails.application.routes.draw do
                 skip: [
                   :passwords,
                   # :registrations,
-                  :sessions,
-                  :confirmations],
+                  # :sessions,
+                  :confirmations
+                ],
                 path: '',
                 path_names: {
+                  sign_in: 'login',
+                  sign_out: 'logout',
                   registration: 'signup'
                 },
                 controllers: {
+                  sessions: 'sessions',
                   registrations: 'registrations'
                 }
   end
