@@ -18,5 +18,6 @@ Rails.application.routes.draw do
                   sessions: 'sessions',
                   registrations: 'registrations'
                 }
+    resources :calculations, only: [:index]
   end
 end
