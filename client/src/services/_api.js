@@ -1,6 +1,5 @@
 import axios from "axios";
 import token from "../helpers/token";
-const CancelToken = axios.CancelToken;
 
 const api = axios.create({
   baseURL: "/api",
