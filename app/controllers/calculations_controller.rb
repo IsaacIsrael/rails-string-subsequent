@@ -17,6 +17,16 @@ class CalculationsController < ApplicationController
     end
   end
 
+  def destroy
+    @result = DestroyCalculationHistoty.call(id: params[:id], user: current_user )
+
+    if @result.success?
+      render status: :ok
+    else
+      render json: { error: @result.error }, status: :bad_request
+    end
+  end
+
   private
 
   def calculation_params
