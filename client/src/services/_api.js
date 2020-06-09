@@ -13,14 +13,14 @@ api.interceptors.request.use(async (config) => {
   return config;
 });
 
-// api.interceptors.response.use(
-//   async (response) => response,
-//   async (error) => {
-//     if (error.config.url !== "/api/login" && error.response.status === 401) {
-//       // authService.logout();
-//     }
-//     return Promise.reject(error);
-//   }
-// );
+api.interceptors.response.use(
+  async (response) => response,
+  async (error) => {
+    if (error.config.url !== "/api/login" && error.response.status === 401) {
+      token.remove();
+    }
+    return Promise.reject(error);
+  }
+);
 
 export default api;
