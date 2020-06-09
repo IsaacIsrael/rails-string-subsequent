@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import {
+  Navbar,
+  Nav,
   Container,
   Wrap,
   Toast,
@@ -9,7 +11,7 @@ import {
   Spinner,
 } from "./styles";
 
-import { calculationService } from "../../services";
+import { authService, calculationService } from "../../services";
 
 export default function Home() {
   const [records, setRecords] = useState([]);
@@ -65,38 +67,49 @@ export default function Home() {
       });
   };
 
+  const handleLogOut = () => {
+    authService.logout().then(() => history.push("/login"));
+  };
+
   return (
-    <Container>
-      <section className="my-5">
-        <header>
-          <h1 className="text-center">Subsequences</h1>
-        </header>
-        <Wrap>
-          <SubstringForm onSubmit={handleSubmit} />
-        </Wrap>
-        <Wrap>
-          {loading && (
-            <div className="text-center">
-              <Spinner animation="border" variant="secondary" />
-            </div>
-          )}
-          <HistoryList records={records} onRemove={handleRemove} />
-        </Wrap>
-      </section>
-      <Toast
-        onClose={() => setError("")}
-        show={error}
-        style={{
-          position: "absolute",
-          bottom: 40,
-          right: 40,
-        }}
-      >
-        <Toast.Header>
-          <strong className="mr-auto">Error</strong>
-        </Toast.Header>
-        <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
-      </Toast>
-    </Container>
+    <>
+      <Navbar bg="dark" variant="dark justify-content-end">
+        <Nav>
+          <Nav.Link onClick={handleLogOut}>Logout</Nav.Link>
+        </Nav>
+      </Navbar>
+      <Container>
+        <section className="my-5">
+          <header>
+            <h1 className="text-center">Subsequences</h1>
+          </header>
+          <Wrap>
+            <SubstringForm onSubmit={handleSubmit} />
+          </Wrap>
+          <Wrap>
+            {loading && (
+              <div className="text-center">
+                <Spinner animation="border" variant="secondary" />
+              </div>
+            )}
+            <HistoryList records={records} onRemove={handleRemove} />
+          </Wrap>
+        </section>
+        <Toast
+          onClose={() => setError("")}
+          show={error}
+          style={{
+            position: "absolute",
+            bottom: 40,
+            right: 40,
+          }}
+        >
+          <Toast.Header>
+            <strong className="mr-auto">Error</strong>
+          </Toast.Header>
+          <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
+        </Toast>
+      </Container>
+    </>
   );
 }

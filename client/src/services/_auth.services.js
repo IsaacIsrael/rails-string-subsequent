@@ -11,10 +11,11 @@ export default {
       .catch(({ response }) => Promise.reject(response.data));
   },
 
-  logout: (user) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => resolve(), 2000);
-    });
+  logout: () => {
+    return api
+      .delete("/logout")
+      .then((response) => token.remove())
+      .catch(({ response }) => Promise.reject(response.data));
   },
 
   signup: (user) => {

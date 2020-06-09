@@ -1,5 +1,5 @@
 import styled from "styled-components";
-export { Container, Spinner, Toast } from "react-bootstrap";
+export { Navbar, Nav, Container, Spinner, Toast } from "react-bootstrap";
 export { SubstringForm, HistoryList } from "../../components";
 
 export const Wrap = styled.div`
